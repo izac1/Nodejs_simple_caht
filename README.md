@@ -6,6 +6,6 @@
 
 Запуск в Unix:
 
-`npm install`
-`NODE_PATH=. node app.js` в папке с приложением. 
+```npm install
+NODE_PATH=. node app.js``` в папке с приложением. 
 
