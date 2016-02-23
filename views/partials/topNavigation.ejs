@@ -1,0 +1,15 @@
+<nav class="navbar navbar-default" role="navigation">
+	<ul class="nav navbar-nav">
+		<li><a href="/">Main</a></li>
+		<%if (user) { %>
+		<li><a href="/chat">Chat</a></li>
+		<% } %>
+	</ul>
+	<ul class="nav navbar-nav pull-right">
+		<%if (user) { %>
+		<li><a href="" onclick="$('<form method=POST action=/logout>').submit();return false;">Exit</a></li>
+		<% }else{ %>
+		<li><a href="/login">Enter</a></li>
+		<% } %>
+	</ul>
+</nav>

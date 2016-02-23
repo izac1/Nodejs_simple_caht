@@ -1,0 +1,59 @@
+<% layout('layout/page') -%>
+<% block('title',"Chat") -%>
+<script src="/socket.io/socket.io.js"></script>
+<div id="room">
+	<ul></ul>
+	<form>
+		<input class="form-control" autocomplete="off" autofocus placeholder="Message...">
+	</form>
+</div>
+
+<script>
+var input = $('#room input');
+var form=$('#room form');
+var ul= $('#room ul');
+
+var socket = io.connect('');
+
+socket
+	.on('message',function(username,message){
+		printMessage(username + ' > ' + message);
+	})
+	.on('leave',function(username){
+		printStatus(username + " leave chat");
+	})
+	
+	.on('connect',function(){
+		printStatus("COnnection OK");
+		form.on('submit',sendMessage);
+		input.prop('disabled',false);
+	})
+	.on('disconnect',function(){
+		printStatus("Connection lost");
+		form.off('submit',sendMessage);
+		input.prop('disabled',true);
+	}).on("logout",function(){
+		location.href="/";
+	})
+	.on('join',function(username){
+		printStatus(username + " join chat");
+	});
+
+	function sendMessage(){
+		var text = input.val();
+		socket.emit('message',text,function(){
+   		printMessage("im > " + text);
+	 });
+		input.val('');
+		return false;
+	};
+
+
+
+function printStatus(status){
+	$('<li>').text(status).appendTo(ul);
+};
+  function printMessage(text) {
+    $('<li>').append($('<i>').text(text)).appendTo(ul);
+  };
+</script>
