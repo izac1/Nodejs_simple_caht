@@ -6,8 +6,9 @@
 
 Запуск в Unix:
 
-```
+```bash
 npm install
 NODE_PATH=. node app.js
-``` в папке с приложением. 
+``` 
+в папке с приложением. 
 
